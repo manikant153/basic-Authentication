@@ -1,0 +1,3 @@
+For every rout there is a controller and view
+ eg. here we have user/profile
+     -->user_controller with it's view file
