@@ -1,10 +1,35 @@
 const User = require('../models/user');
 
-function profile(req,res){
-    res.render('user_profile',{
-        title:"user profile"
-    });
+// function profile(req,res){
+//     console.log(req.cookies_user_id);
+//     res.render('user_profile',{
+//         title:"user profile"
+//     });
+// }
+
+async function profile(req, res) {
+    try {
+        if (req.cookies.user_id) {
+            console.log("user id is ;",req.cookies.user_id);
+            const user = await User.findById(req.cookies.user_id);
+            if (user) {
+                return res.render('user_profile', {
+                    title: "User Profile",
+                    user: user
+                });
+            } else {
+                return res.redirect('/users/sign-in');
+            }
+        } else {
+            return res.redirect('/users/sign-in');
+        }
+    } catch (err) {
+        console.error('Error in profile:', err);
+        return res.status(500).send('Internal Server Error');
+    }
 }
+
+
 
 function signIn(req,res){
     return res.render('user_sign_in',{
@@ -43,13 +68,29 @@ async function create(req, res) {
     }
 }
 
-
-
-
-
-// ----------
-   
 //  create a action for signIn page ?
+async function createSession(req, res) {
+    try {
+        // find user
+        const user = await User.findOne({ email: req.body.email });
+        if (user) {
+            // if user present and password not matched
+            if (user.password !== req.body.password) {
+                return res.redirect('back');
+            }
+
+            // When user present 
+            res.cookie('user_id', user.id);
+            return res.redirect('/users/profile');
+        } else {
+            return res.redirect('back');
+        }
+    } catch (err) {
+        console.log("Error in finding user in signing in", err);
+        return res.redirect('back');
+    }
+}
+
 
 // ----
 
@@ -57,5 +98,5 @@ async function create(req, res) {
 
 console.log("profile loaded");
 module.exports ={
-    profile,signIn,signUp,create
+    profile,signIn,signUp,create,createSession
 }
