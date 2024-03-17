@@ -7,12 +7,21 @@ function profile(req,res){
 }
 
 function signIn(req,res){
+    if(req.isAuthenticated()){
+       return res.redirect('/users/profile');
+    }
+
     return res.render('user_sign_in',{
         title:"Codeial : Sign in"
     });
 }
 
 function signUp(req,res){
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
+
+
     return res.render('user_sign_up',{
         title:"Codeial : Sign up"
     });
@@ -49,13 +58,14 @@ async function create(req, res) {
 
 // ----------
    
-//  create a action for signIn page ?
-
-// ----
+//  createSession a action for signIn page ?
+function createSession(req,res){
+    return res.redirect('/');
+}
 
 
 
 console.log("profile loaded");
 module.exports ={
-    profile,signIn,signUp,create
+    profile,signIn,signUp,create,createSession
 }
