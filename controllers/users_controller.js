@@ -51,21 +51,31 @@ async function create(req, res) {
         return res.status(500).send("Internal Server Error");
     }
 }
-
-
-
-
-
-// ----------
    
 //  createSession a action for signIn page ?
 function createSession(req,res){
     return res.redirect('/');
 }
 
+// function destroySession(req,res){
+//     req.logout();
+//    return res.redirect('/');
+// }
+function destroySession(req, res) {
+    req.logout(function(err) {
+        if (err) {
+            console.error("Error logging out:", err);
+            return res.status(500).send("Internal Server Error");
+        }
+        return res.redirect('/');
+    });
+}
+
+
+
 
 
 console.log("profile loaded");
 module.exports ={
-    profile,signIn,signUp,create,createSession
+    profile,signIn,signUp,create,createSession,destroySession
 }
