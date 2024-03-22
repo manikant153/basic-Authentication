@@ -53,6 +53,57 @@
 // });
 
 
+// const express = require('express');
+// const cookieParser = require('cookie-parser');
+// const expressLayouts = require('express-ejs-layouts');
+// const db = require('./conifg/mongoose');
+// const session = require('express-session');
+// const passport = require('passport');
+// const passportLocal = require('./conifg/passport-local-strategy');
+// const MongoStore = require('connect-mongo');
+
+// const app = express();
+// const port = 2000;
+
+// app.use(express.urlencoded({ extended: true }));
+// app.use(cookieParser());
+// app.use(express.static('./assets'));
+// app.use(expressLayouts);
+// app.set('layout extractStyles', true);
+// app.set('layout extractScripts', true);
+// app.set('view engine', 'ejs');
+// app.set('views', './views');
+
+// const store = MongoStore.create({
+//     mongoUrl: 'mongodb://localhost:27017/practice', // Replace with your MongoDB connection string
+//     mongooseConnection: db,
+//     autoRemove: 'disabled'
+// });
+
+// app.use(session({
+//     name: 'PRACTICE',
+//     secret: "blahsomething",
+//     saveUninitialized: false,
+//     resave: false,
+//     cookie: {
+//         maxAge: (1000 * 60 * 100)
+//     },
+//     store: store,
+// }));
+
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+// app.use(passport.setAuthenticatedUser);
+// app.use('/', require('./routes'));
+
+// app.listen(port, function (err) {
+//     if (err) {
+//         console.log(`Error on running the server: ${err}`);
+//     }
+//     console.log(`Yup! Server is running on port: ${port}`);
+// });
+
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const expressLayouts = require('express-ejs-layouts');
@@ -61,10 +112,20 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./conifg/passport-local-strategy');
 const MongoStore = require('connect-mongo');
+const sassMiddleware = require('node-sass-middleware');
 
 const app = express();
 const port = 2000;
 
+app.use(sassMiddleware({
+    src:'./assets/scss',
+    dest:'./assets/CSS',
+    debug: true,
+    outputStyle:'extended',
+    prefix:'/CSS'
+}));
+
+// Middleware setup
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static('./assets'));
@@ -74,12 +135,14 @@ app.set('layout extractScripts', true);
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+// Session store setup
 const store = MongoStore.create({
     mongoUrl: 'mongodb://localhost:27017/practice', // Replace with your MongoDB connection string
     mongooseConnection: db,
     autoRemove: 'disabled'
 });
 
+// Session middleware setup
 app.use(session({
     name: 'PRACTICE',
     secret: "blahsomething",
@@ -91,12 +154,15 @@ app.use(session({
     store: store,
 }));
 
+// Passport middleware setup
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use(passport.setAuthenticatedUser);
+
+// Routes setup
 app.use('/', require('./routes'));
 
+// Server setup
 app.listen(port, function (err) {
     if (err) {
         console.log(`Error on running the server: ${err}`);
