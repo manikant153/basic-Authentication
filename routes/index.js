@@ -22,5 +22,6 @@ router.get('/',homeController.home);
 // when any router ges to /users or/users/profile
   //   will followed by this
 router.use('/users',require('./users'));
+router.use('/posts',require('./posts'));
 
 module.exports = router;

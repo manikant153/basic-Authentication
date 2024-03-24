@@ -1,35 +1,30 @@
-
+<link rel="stylesheet" href="/CSS/header.css">
 <div class="header">
     <div class="navbar">
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#services">Services</a>
-    <a href="#contact">Contact</a>
-</div>
-
-<div class="content">
-    <div class="container">
-        <h1>Welcome to our Website</h1>
-        <ul>
-            <% if (locals.user){%>
-            <!-- <li><%= user.name %></li> -->
-            <li>
-                <a href="/users/profile">
-                    <%= user.name %>
-                </a>
-            </li>
-            <li>
-                <a href="/users/sign-out">sign-out</a>
-            </li>
-            <% } else{%>
+        <div class="logo">
+            Social
+        </div>
+        <div class="container">
+            <ul>
+                <% if (locals.user){%>
+                <!-- <li><%= user.name %></li> -->
                 <li>
-                    <a href="/users/sign-in">Sign In</a>
+                    <a href="/users/profile">
+                        <%= user.name %>
+                    </a>
                 </li>
                 <li>
-                    <a href="/users/sign-up">Sign-up</a>
+                    <a href="/users/sign-out">sign-out</a>
                 </li>
-                <% } %>
-        </ul>
+                <% } else{%>
+                    <li>
+                        <a href="/users/sign-in">Sign In</a>
+                    </li>
+                    <li>
+                        <a href="/users/sign-up">Sign-up</a>
+                    </li>
+                    <% } %>
+            </ul>
+        </div>
     </div>
-  </div>
 </div>

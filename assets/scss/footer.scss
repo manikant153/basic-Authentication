@@ -1,0 +1,29 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+
+    .footer-icons {
+        margin-top: 10px;
+
+        a {
+            color: #fff;
+            font-size: 24px;
+            margin-right: 10px;
+            text-decoration: none;
+
+            &:hover {
+                opacity: 0.8;
+            }
+
+            i {
+                transition: opacity 0.3s ease;
+            }
+        }
+    }
+}
