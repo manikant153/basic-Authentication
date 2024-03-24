@@ -3,12 +3,38 @@
 <div class="home-container">
 <div class="home-page">
     <p>Welcome to home page</p>
-    <a href="#" class="btn">Learn More</a>
+    <a href="/users/sign-in" class="btn">
+        <% if(locals.user){ %>
+        <%= locals.user.name %>
+        <% } else{ %>
+            First sign-in 
+            to see the Post
+            <% } %>
+    </a>
 </div>
+   <!-- hidding from the user  -->
+   <% if( locals.user) {%>
 <section>
  <form action="/posts/create" id="new-post-form" method="POST">
     <textarea name="content" cols="30" rows="5" placeholder="Type Here..."></textarea>
     <input type="submit" value="Post">
  </form>
+    <!-- hidding from the user  -->
 </section>
+<div id="posts-list-container">
+    <ul>
+        <% for(post of posts) { %>
+        <li>
+            <p>
+                <%= post.content %>
+                <br>
+                <small>
+                    <%= post.user.name %>
+                </small>
+            </p>
+        </li>
+        <% } %>
+    </ul>
+</div>
+<% }%>
 </div>

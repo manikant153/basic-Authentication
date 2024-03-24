@@ -103,16 +103,18 @@
 //     }
 //     console.log(`Yup! Server is running on port: ${port}`);
 // });
-
+// -------------------------required packages----------------
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const expressLayouts = require('express-ejs-layouts');
-const db = require('./conifg/mongoose');
 const session = require('express-session');
 const passport = require('passport');
-const passportLocal = require('./conifg/passport-local-strategy');
 const MongoStore = require('connect-mongo');
 const sassMiddleware = require('node-sass-middleware');
+// -------------------------required packages----------------
+
+const passportLocal = require('./conifg/passport-local-strategy');
+const db = require('./conifg/mongoose');
 
 const app = express();
 const port = 2000;
