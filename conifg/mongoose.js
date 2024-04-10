@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 // why localhost because we are using in our system.
-mongoose.connect('mongodb://localhost/practice_2');
+mongoose.connect('mongodb://localhost/lecture_database');
 
 const db = mongoose.connection;
 
