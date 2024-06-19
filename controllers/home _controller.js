@@ -11,14 +11,12 @@ const Post = require('../models/post');
 
 async function home(req, res) {
     try {
-        const posts = await Post.find({}).populate('User')
-        .populate({
-            path:'comment',
-            populate:{
-                path :'user'
+        const posts = await Post.find({}).populate('user').populate({
+            path: 'comments',
+            populate: {
+                path: 'user'
             }
-        })
-        .exec();
+        }).exec();
         return res.render('home', {
             title: 'Home',
             posts: posts

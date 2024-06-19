@@ -146,7 +146,7 @@ const store = MongoStore.create({
 
 // Session middleware setup
 app.use(session({
-    name: 'PRACTICE',
+    name: 'Lecture code',
     secret: "blahsomething",
     saveUninitialized: false,
     resave: false,
